@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EnglishReminder2.Views.Diki">
+    <Shell.TitleView>
+        <Label Text="Polecany słownik Diki" FontSize="23" FontAttributes="Bold" TextColor="#ff8700" VerticalTextAlignment="Center"/>
+    </Shell.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <WebView Source="https://www.diki.pl/slownik-angielskiego" HeightRequest="1000" WidthRequest="1000"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

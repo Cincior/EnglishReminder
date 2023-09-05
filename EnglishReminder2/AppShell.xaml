@@ -1,0 +1,117 @@
+﻿<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="EnglishReminder2.AppShell"
+       xmlns:views="clr-namespace:EnglishReminder2.Views">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="White" />
+                <Setter Property="Shell.ForegroundColor" Value="#ff7300" />
+                <Setter Property="Shell.NavBarHasShadow" Value="False"/>
+            </Style>
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="18"></Setter>
+            </Style>
+
+            <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="Black" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="DarkOrange" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            
+            <!--<Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="White" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.FontSize" Value="10" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>-->
+            
+        </ResourceDictionary>
+    </Shell.Resources>
+
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="Black"
+                  HeightRequest="180"
+                  WidthRequest="12">
+                <Image Aspect="AspectFill"
+                       Source="icon.png"
+                       Opacity="0.6" />
+                <Label Text="English Reminder"
+                       TextColor="White"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <Shell.FlyoutFooter>
+        <Grid BackgroundColor="#ff7300"
+                  HeightRequest="60">
+            <Label Text="Cincior © 2023"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+        </Grid>
+    </Shell.FlyoutFooter>
+
+
+    <!--<Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding FlyoutIcon}"/>
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+/>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>-->
+
+    <FlyoutItem Title="Home" Icon="Home.png">
+        <ShellContent Route="Main" ContentTemplate="{DataTemplate views:Main}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Lesson">
+        <ShellContent Route="Lesson" ContentTemplate="{DataTemplate views:Lesson}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Quiz">
+        <ShellContent Route="Quiz" ContentTemplate="{DataTemplate views:Quiz}"/>
+    </FlyoutItem>
+
+</Shell>

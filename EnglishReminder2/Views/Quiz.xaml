@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EnglishReminder2.Views.Quiz">
+
+    <Shell.TitleView>
+        <StackLayout>
+            <ImageButton x:Name="main" HeightRequest="28" WidthRequest="28" Clicked="main_Clicked" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Source="Home2.png" BackgroundColor="Transparent" Margin="0,0,18,0"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <!--pablawa learning-->
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

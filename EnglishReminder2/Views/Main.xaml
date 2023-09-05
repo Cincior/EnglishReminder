@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="EnglishReminder2.Views.Main">
+
+    <Shell.TitleView>
+        <StackLayout>
+            <!--<Label Text="Reminder" HorizontalOptions="StartAndExpand" VerticalOptions="Center" TextColor="#ff7300" FontSize="24"/>-->
+            <ImageButton x:Name="main" HeightRequest="28" WidthRequest="28" Clicked="main_Clicked" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Source="Home2.png" BackgroundColor="Transparent" Margin="0,0,18,0"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="Title">
+                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="TextColor" Value="#ff7300"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+            </Style>
+            <Style TargetType="Label" x:Key="Subtitle">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="StackLayout" x:Key="StackMain">
+                <!--<Setter Property="BackgroundColor" Value="#ff8700"/>-->
+                <Setter Property="Padding" Value="11"/>
+            </Style>
+            <Style TargetType="Label" x:Key="lblHeader">
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Margin" Value="0,42,0,0"/>
+            </Style>
+            <Style TargetType="Label" x:Key="StackMainHeader">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <!--<Setter Property="TextColor" Value="White"/>-->
+            </Style>
+            <Style TargetType="Button" x:Key="btnMain">
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="WidthRequest" Value="135"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="#212227"/>
+                <!--#8FB339  #242331-->
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="100"/>
+                <!--<Setter Property="BorderColor" Value="#ff8700"/>
+                <Setter Property="BorderWidth" Value="1.1"/>-->
+            </Style>
+            <Style TargetType="Grid" x:Key="StackInfo">
+                <Setter Property="BackgroundColor" Value="#ff8700"/>
+                <Setter Property="Padding" Value="11"/>
+            </Style>
+            <Style TargetType="Label" x:Key="lblInfo">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+            <Style TargetType="Entry" x:Key="EntryMain">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="PlaceholderColor" Value="#a1a1a1"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+            <Style TargetType="Image" x:Key="MainImg">
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="WidthRequest" Value="50"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            </Style>
+            <Style TargetType="Label" x:Key="MainSubTitle">
+                <Setter Property="FontSize" Value="19"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+            <Style TargetType="Frame" x:Key="FrameMain">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="HasShadow" Value="True"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Spacing="0" Orientation="Horizontal" Margin="12">
+                    <Label Style="{StaticResource Title}" 
+                           Text="Centrum dowodzenia Remindera"/>
+                    <ImageButton x:Name="infoButton" 
+                                 Source="info.png" 
+                                 Clicked="infoButton_Clicked" 
+                                 WidthRequest="26" 
+                                 HeightRequest="26"
+                                 VerticalOptions="CenterAndExpand"
+                                 BackgroundColor="Transparent"/>
+                </StackLayout>
+
+                <yummy:PancakeView BackgroundColor="White" CornerRadius="60,0,0,0" Padding="0,20,0,0">
+                    
+                    <StackLayout Spacing="0">
+
+                        <Grid Margin="14,20,14,0">
+                            <!--pytajnik, slownik, zegar-->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.35*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Frame CornerRadius="20" 
+                                       Style="{StaticResource FrameMain}"
+                                        BackgroundColor="Transparent">
+                                <StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_QuestionMark"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Image Style="{StaticResource MainImg}" 
+                                               Source="question.png"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame CornerRadius="10"
+                                           Style="{StaticResource FrameMain}"
+                                           Grid.Column="1"
+                                           x:Name="FrameWord">
+                                <Grid RowDefinitions="*,*,2" Padding="24,0" >
+                                    <Label Style="{StaticResource MainSubTitle}"
+                                                Text="Podaj słówko:"/>
+                                    <Entry Style="{StaticResource EntryMain}"
+                                                Placeholder="np. Remind"
+                                                x:Name="EntryWord"
+                                                Text=""
+                                                Grid.Row="1"
+                                                ReturnType="Next"/>
+                                </Grid>
+                            </Frame>
+
+                            <Frame CornerRadius="20"
+                                       Grid.Row="2"
+                                       Style="{StaticResource FrameMain}"
+                                       BackgroundColor="Transparent">
+                                <StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Dictionary"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Image Style="{StaticResource MainImg}" 
+                                               Source="dictionary.png"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame CornerRadius="10"
+                                           Style="{StaticResource FrameMain}"
+                                           Grid.Column="1"
+                                           Grid.Row="2"
+                                           x:Name="FrameTranslate">
+                                <Grid RowDefinitions="*,*,2" Padding="24,0">
+                                    <Grid>
+                                        <Label Style="{StaticResource MainSubTitle}" VerticalTextAlignment="Center"
+                                               Text="Podaj tłumaczenie:"/>
+                                        <Label Text="Nie znam tłumaczenia" VerticalOptions="End" TextDecorations="Underline" Padding="0,0,0,-2">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="TapGestureRecognizer_LabelDictionary"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Grid>
+                                    <Entry Style="{StaticResource EntryMain}"
+                                                Placeholder="np. Przypominać"
+                                                Grid.Row="1"
+                                                Text=""
+                                                x:Name="EntryTranslate"
+                                                ReturnType="Next"/>
+                                </Grid>
+                            </Frame>
+
+                            <Frame CornerRadius="20"
+                                       Grid.Row="4"
+                                       Style="{StaticResource FrameMain}"
+                                       BackgroundColor="Transparent">
+                                <StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Clock"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Image Style="{StaticResource MainImg}" 
+                                               Source="clock.png"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame CornerRadius="10"
+                                           Style="{StaticResource FrameMain}"
+                                           Grid.Column="1"
+                                           Grid.Row="4"
+                                           x:Name="FrameTime">
+                                <Grid RowDefinitions="*,*,2" Padding="24,0" >
+                                    <Label Style="{StaticResource MainSubTitle}"
+                                                Text="Podaj Czas:"/>
+                                    <Entry Style="{StaticResource EntryMain}"
+                                                Placeholder="(min)"
+                                                Grid.Row="1"
+                                                Text=""
+                                                x:Name="EntryTime"
+                                                Keyboard="Numeric"/>
+                                </Grid>
+                            </Frame>
+
+                        </Grid>
+
+                        <Grid Margin="14,0,14,14">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Style="{StaticResource btnMain}" 
+                                        x:Name="SendNotification" 
+                                        Clicked="SendNotification_Clicked" 
+                                        Text="Przypomnij"
+                                        Grid.Column="0"/>
+
+                            <!--w powiadomieniu opcje przypomnij ponownie-->
+
+                            <Button Style="{StaticResource btnMain}" 
+                                        x:Name="CancelNotification" 
+                                        Clicked="CancelNotification_Clicked" 
+                                        Text="Anuluj"
+                                        Grid.Column="1"/>
+
+                        </Grid>
+                        
+                        <!--<Frame Padding="0" 
+                                       HasShadow="True" 
+                                       CornerRadius="8">
+                                <StackLayout Style="{StaticResource StackMain}" 
+                                         Spacing="0">
+                                    <Label Style="{StaticResource StackMainHeader}" 
+                                       Text="Wpisz słówko, które chcesz byśmy Ci przypomnieli" 
+                                       Margin="0"/>
+                                    <Entry Style="{StaticResource EntryMain}" Placeholder="Wpisz słówko"/>
+                                    <Label Style="{StaticResource StackMainHeader}" 
+                                       Text="Wypadałoby wpisać jeszcze znaczenie słówka"/>
+                                    <Entry Placeholder="Wpisz tłumaczenie"/>
+                                    <Label Style="{StaticResource StackMainHeader}" 
+                                       Text="Za ile mamy wysłać przypomnienie?"/>
+                                    <Entry Placeholder="Podaj czas (min)"/>
+                                    <Label Text="Standardowo przypomnienie otrzymasz za 30 min."
+                                           TextColor="White"/>
+
+                                    <Grid Margin="0,4,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.5*"/>
+                                            <ColumnDefinition Width="0.5*"/>
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <Button Style="{StaticResource btnMain}" 
+                                        x:Name="SendNotification" 
+                                        Clicked="SendNotification_Clicked" 
+                                        Text="Przypomnij"/>
+                                        -->
+                        <!--w powiadomieniu opcje przypomnij ponownie-->
+                        <!--
+                                        <Button Style="{StaticResource btnMain}" 
+                                        x:Name="CancelNotification" 
+                                        Clicked="CancelNotification_Clicked" 
+                                        Text="Anuluj"
+                                        Grid.Column="1"/>
+                                    </Grid>
+
+
+                                </StackLayout>
+                            </Frame>-->
+                        <BoxView BackgroundColor="DarkOrange" HeightRequest="1" Margin="0,5"/>
+
+                        <Grid Margin="14">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Frame Padding="0" 
+                                       HasShadow="True" 
+                                       CornerRadius="8">
+                                <Grid Style="{StaticResource StackInfo}" RowDefinitions="*,0.5*">
+                                    <Label x:Name="HowMany" 
+                                               Text="18" 
+                                               FontSize="26"
+                                               FontAttributes="Bold"
+                                               Style="{StaticResource lblInfo}"
+                                               VerticalOptions="Start"/>
+                                    <Label Text="Tyle słówek udało Ci się już powtórzyć"
+                                               Style="{StaticResource lblInfo}"
+                                               Grid.Row="1"
+                                               VerticalOptions="End"/>
+                                </Grid>
+                            </Frame>
+                            <Frame Padding="0" 
+                                       HasShadow="True"
+                                       CornerRadius="8"
+                                       Grid.Column="1"
+                                       x:Name="FrameInfo">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Style="{StaticResource StackInfo}" RowDefinitions="*,0.5*">
+                                    <Label x:Name="LastWord" 
+                                               Text="Imaginative"
+                                               FontSize="26"
+                                               FontAttributes="Bold"
+                                               Style="{StaticResource lblInfo}"
+                                               VerticalOptions="Start"/>
+                                    <Label Text="Kliknij, by sprawdzić wcześniej wpisywane słówka"
+                                               Style="{StaticResource lblInfo}" 
+                                               VerticalOptions="End"
+                                               TextDecorations="Underline"
+                                               Grid.Row="1"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </StackLayout>
+                </yummy:PancakeView>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

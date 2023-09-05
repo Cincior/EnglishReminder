@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EnglishReminder2.Views.LastTen">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label HorizontalOptions="Center"
+                   Text="Ostatnie 10 słówek. Kliknij w słówko, by przypomnieć je ponownie"
+                   FontSize="22"
+                   x:Name="Header"/>
+            <ListView x:Name="LastTenList" 
+                      ItemsSource="{Binding WordList}"
+                      RowHeight="56"
+                      IsPullToRefreshEnabled="True"
+                      ItemSelected="LastTenList_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Tapped="ViewCell_Tapped">
+                            <Grid RowDefinitions="*,*" Padding="5,0,0,0" RowSpacing="0">
+                                <Label Text="{Binding Slowko}" 
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#ff8700"
+                                       VerticalTextAlignment="Center"/>
+                                <Label Text="{Binding Tlumaczenie}"
+                                       Grid.Row="1"
+                                       FontSize="15"
+                                       TextColor="Black"
+                                       VerticalTextAlignment="Center"/>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
