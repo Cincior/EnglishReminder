@@ -6,19 +6,22 @@
         <StackLayout>
             <Label HorizontalOptions="Center"
                    Text="Ostatnie 10 słówek. Kliknij w słówko, by przypomnieć je ponownie"
-                   FontSize="22"
+                   FontSize="24"
+                   TextColor="#212227"
+                   HorizontalTextAlignment="Center"
+                   Padding="10,5"
                    x:Name="Header"/>
             <ListView x:Name="LastTenList" 
                       ItemsSource="{Binding WordList}"
-                      RowHeight="56"
+                      RowHeight="64"
                       IsPullToRefreshEnabled="True"
                       ItemSelected="LastTenList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Tapped="ViewCell_Tapped">
-                            <Grid RowDefinitions="*,*" Padding="5,0,0,0" RowSpacing="0">
+                            <Grid RowDefinitions="*,*" Padding="5" RowSpacing="0">
                                 <Label Text="{Binding Slowko}" 
-                                       FontSize="20"
+                                       FontSize="22"
                                        FontAttributes="Bold"
                                        TextColor="#ff8700"
                                        VerticalTextAlignment="Center"/>

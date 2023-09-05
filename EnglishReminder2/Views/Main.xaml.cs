@@ -25,18 +25,34 @@ namespace EnglishReminder2.Views
         {
             //Hosting at somee.com
             InitializeComponent();
-            sqlConnection.Open();
-            SqlCommand cmd = new SqlCommand("Select IleSlowek from dbo.LicznikSlowek where Id = 1", sqlConnection);
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            HowMany.Text = Convert.ToString(reader["IleSlowek"]);
-            reader.Close();
-            sqlConnection.Close();
+
+            UpdateAmountOfWords();
+            UpdateLastWord();
+
             NotificationCenter.Current.NotificationReceived += Current_NotificationReceived;
             NotificationCenter.Current.NotificationTapped += Current_NotificationTapped;
         }
 
-
+        private void UpdateLastWord()
+        {
+            sqlConnection.Open();
+            SqlCommand GetWord = new SqlCommand("SELECT TOP 1 Slowko FROM dbo.SlowkaWpisane ORDER BY Id DESC", sqlConnection);
+            SqlDataReader readerWord = GetWord.ExecuteReader();
+            readerWord.Read();
+            LastWord.Text = Convert.ToString(readerWord["Slowko"]);
+            readerWord.Close();
+            sqlConnection.Close();
+        }
+        private void UpdateAmountOfWords()
+        {
+            sqlConnection.Open();
+            SqlCommand cmd2 = new SqlCommand("SELECT IleSlowek FROM dbo.LicznikSlowek WHERE Id = 1", sqlConnection);
+            SqlDataReader reader2 = cmd2.ExecuteReader();
+            reader2.Read();
+            HowMany.Text = Convert.ToString(reader2["IleSlowek"]);
+            reader2.Close();
+            sqlConnection.Close();
+        }
 
         private void Current_NotificationTapped(NotificationTappedEventArgs e)
         {
@@ -45,7 +61,6 @@ namespace EnglishReminder2.Views
                 Shell.Current.GoToAsync("/Main");
                 DisplayAlert("xd", "tapped", "xd");
             });
-            
         }
 
         private void Current_NotificationReceived(NotificationReceivedEventArgs e)
@@ -63,14 +78,10 @@ namespace EnglishReminder2.Views
                 reader.Close();
                 SqlCommand cmdUpdate = new SqlCommand($"UPDATE dbo.LicznikSlowek SET IleSlowek = {StanSlowek} WHERE Id = 1", sqlConnection);
                 cmdUpdate.ExecuteNonQuery();
-                //Update 
-                SqlCommand cmd2 = new SqlCommand("SELECT IleSlowek FROM dbo.LicznikSlowek WHERE Id = 1", sqlConnection);
-                SqlDataReader reader2 = cmd2.ExecuteReader();
-                reader2.Read();
-                HowMany.Text = Convert.ToString(reader2["IleSlowek"]);
-                reader2.Close();
                 sqlConnection.Close();
 
+                UpdateAmountOfWords();
+                
                 //Word
                 string Slowko, Tlumaczenie;
                 Slowko = (e.Description.Split('-')[0]).Trim();
@@ -78,15 +89,8 @@ namespace EnglishReminder2.Views
                 sqlConnection.Open();
                 SqlCommand cmdInsert = new SqlCommand($"INSERT INTO SlowkaWpisane VALUES('{Slowko}', '{Tlumaczenie}')", sqlConnection);
                 cmdInsert.ExecuteNonQuery();
-                //Update
-                SqlCommand GetWord = new SqlCommand("SELECT TOP 1 Slowko FROM dbo.SlowkaWpisane ORDER BY Id DESC", sqlConnection);
-                SqlDataReader readerWord = GetWord.ExecuteReader();
-                readerWord.Read();
-                LastWord.Text = Convert.ToString(readerWord["Slowko"]);
-                readerWord.Close();
 
-                sqlConnection.Close();
-
+                UpdateLastWord();
                 DisplayAlert("xd", "received", "xd");
             });
         }

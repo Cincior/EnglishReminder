@@ -74,6 +74,11 @@ namespace EnglishReminder2.Views
                 NotificationCenter.Current.Show(notification);
                 await DisplayAlert("poszlo", "ok", "k");
             }
+            else
+            {
+                if (lastCell != null)
+                    lastCell.View.BackgroundColor = Color.Transparent;
+            }
         }
     }
 }
