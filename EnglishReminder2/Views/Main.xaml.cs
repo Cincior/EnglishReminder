@@ -8,18 +8,14 @@ using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Xamarin.Essentials.AppleSignInAuthenticator;
+using static EnglishReminder2.Models.DbInfo;
 
 namespace EnglishReminder2.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Main : ContentPage
     {
-        static string srvrdbname = "EnglishReminder";
-        static string srvrname = "192.168.2.106";
-        static string srvrusername = "EnglishReminderAdmin";
-        static string srvrpassword = "12345";
-        static string sqlconn = $"Data Source={srvrname};Initial Catalog ={srvrdbname}; User ID ={srvrusername}; Password ={srvrpassword}";
+        
         SqlConnection sqlConnection = new SqlConnection(sqlconn);
         public Main()
         {
@@ -89,6 +85,7 @@ namespace EnglishReminder2.Views
                 sqlConnection.Open();
                 SqlCommand cmdInsert = new SqlCommand($"INSERT INTO SlowkaWpisane VALUES('{Slowko}', '{Tlumaczenie}')", sqlConnection);
                 cmdInsert.ExecuteNonQuery();
+                sqlConnection.Close();
 
                 UpdateLastWord();
                 DisplayAlert("xd", "received", "xd");
@@ -142,10 +139,11 @@ namespace EnglishReminder2.Views
 
             if (IsWord && IsTranslate && IsTime)
             {
+                string word = char.ToUpper(EntryWord.Text[0]) + EntryWord.Text.Substring(1);
                 var notification = new NotificationRequest
                 {
                     BadgeNumber = 1,
-                    Description = EntryWord.Text + " - " + EntryTranslate.Text,
+                    Description = word + " - " + EntryTranslate.Text,
                     Title = "Twoje słówko:",
                     ReturningData = "bk",
                     NotificationId = 1,
@@ -172,8 +170,8 @@ namespace EnglishReminder2.Views
         private void CancelNotification_Clicked(object sender, EventArgs e)
         {
             //tablica z id powiadomienia i jezeli cos jest to przycisk anuluj aktywny, jesli nie to nieaktywny
-            //NotificationCenter.Current.CancelAll();
-            //DisplayAlert("Anulowano", "Pomyślnie anulowano powiadomienia", "OK");
+            NotificationCenter.Current.CancelAll();
+            DisplayAlert("Anulowano", "Pomyślnie anulowano powiadomienia", "OK");
         }
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
@@ -184,7 +182,7 @@ namespace EnglishReminder2.Views
 
         private void infoButton_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("Jak działa aplikacja?", "Wprowadź słówko a my je ci przypomnimy. Jeśli będziesz czuł, że znasz je doskonale możesz wpisać następne. Jeśli jednak uważasz, że potzebujesz jeszcze przypomnienia - wpisz je jeszcze raz. Jak zdecydujesz, że nie chcesz otrzymać przypomnienia ostatnio wpisanego słowka - kliknij przycisk anuluj", "Kumam");
+            DisplayAlert("Jak działa aplikacja?", "W poniższym panelu możesz wpisać słówko, które trudno Ci zapamiętać. Dostaniesz jego przypomnienie po wybranym okresie czasu. Słówko pojawi się też w historii, więc możesz je sobie przypomnieć ponownie. Po przyciśnięciu anuluj wszystkie zaplanowane przypomnienia są anulowane. Jeśli nie znasz tłumaczenia słówka, sprawdź je w polecanym słowniku.", "Kumam");
         }
 
         private void TapGestureRecognizer_QuestionMark(object sender, EventArgs e)
@@ -205,6 +203,21 @@ namespace EnglishReminder2.Views
         private void TapGestureRecognizer_LabelDictionary(object sender, EventArgs e)
         {
             Shell.Current.GoToAsync("Diki");
+        }
+
+        private void TapGestureRecognizer_10(object sender, EventArgs e)
+        {
+            EntryTime.Text = "10";
+        }
+
+        private void TapGestureRecognizer_30(object sender, EventArgs e)
+        {
+            EntryTime.Text = "30";
+        }
+
+        private void TapGestureRecognizer_60(object sender, EventArgs e)
+        {
+            EntryTime.Text = "60";
         }
     }
 }

@@ -2,40 +2,67 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EnglishReminder2.Views.LastTen">
+    <Shell.TitleView>
+        <Label Text="Ostatnie 10 słówek" 
+               FontSize="23" 
+               VerticalTextAlignment="Center"
+               TextColor="Black"/>
+    </Shell.TitleView>
     <ContentPage.Content>
-        <StackLayout>
-            <Label HorizontalOptions="Center"
-                   Text="Ostatnie 10 słówek. Kliknij w słówko, by przypomnieć je ponownie"
-                   FontSize="24"
-                   TextColor="#212227"
-                   HorizontalTextAlignment="Center"
-                   Padding="10,5"
-                   x:Name="Header"/>
-            <ListView x:Name="LastTenList" 
-                      ItemsSource="{Binding WordList}"
-                      RowHeight="64"
-                      IsPullToRefreshEnabled="True"
-                      ItemSelected="LastTenList_ItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell Tapped="ViewCell_Tapped">
-                            <Grid RowDefinitions="*,*" Padding="5" RowSpacing="0">
-                                <Label Text="{Binding Slowko}" 
-                                       FontSize="22"
-                                       FontAttributes="Bold"
-                                       TextColor="#ff8700"
-                                       VerticalTextAlignment="Center"/>
-                                <Label Text="{Binding Tlumaczenie}"
-                                       Grid.Row="1"
-                                       FontSize="15"
-                                       TextColor="Black"
-                                       VerticalTextAlignment="Center"/>
+        <ScrollView>
+            <StackLayout>
+                <ListView x:Name="LastTenList" 
+                          ItemsSource="{Binding WordList}"
+                          RowHeight="64"
+                          IsPullToRefreshEnabled="False"
+                          ItemSelected="LastTenList_ItemSelected"
+                          SeparatorColor="DarkOrange">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Tapped="ViewCell_Tapped">
+                                <Grid RowDefinitions="*,*" Padding="5" RowSpacing="0">
+                                    <Label Text="{Binding Id}"
+                                           FontSize="18"
+                                           TextColor="Black"
+                                           VerticalTextAlignment="Center"
+                                           Grid.RowSpan="2"
+                                           Padding="3,0,0,0"/>
+                                    <Label Text="{Binding Slowko}" 
+                                           FontSize="22"
+                                           FontAttributes="Bold"
+                                           TextColor="#ff8700"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding Tlumaczenie}"
+                                           Grid.Row="1"
+                                           FontSize="15"
+                                           TextColor="Black"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"/>
 
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid ColumnDefinitions="auto,*" RowDefinitions="*">
+                    <BoxView CornerRadius="100" 
+                             BackgroundColor="#ff7300" 
+                             WidthRequest="9" 
+                             HeightRequest="9" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="Center"
+                             Margin="8,0,0,0"/>
+                    <Label HorizontalOptions="Start"
+                           Text="Możesz kliknąć w słówko, by przypomnieć je ponownie"
+                           FontSize="18"
+                           TextColor="#212227"
+                           Padding="5"
+                           x:Name="Header"
+                           Grid.Column="1"/>
+                </Grid>
+                
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
