@@ -41,19 +41,15 @@ namespace EnglishReminder2.Views
 
         private async void ViewCell_Tapped(object sender, EventArgs e)
         {
-            if (lastCell != null)
-                lastCell.View.BackgroundColor = Color.Transparent;
             var viewCell = (ViewCell)sender;
             viewCell.View.BackgroundColor = Color.FromHex("#ffdab0");
-            lastCell = viewCell;
-
             var confirm = await DisplayAlert("Uwaga", "Jesteś pewien, że chcesz jeszcze raz przypomnieć to słówko?", "Tak", "Nie");
             if (confirm)
             {
                 var notification = new NotificationRequest
                 {
                     BadgeNumber = 1,
-                    Description = WordList.FirstOrDefault(x => x.Id == (Convert.ToInt32(viewCell.Id) - 1)).Slowko + " - " + WordList.FirstOrDefault(x => x.Id == (Convert.ToInt32(viewCell.Id) - 1)).Tlumaczenie,
+                    Description = WordList.First(x => x.Id == (Convert.ToInt32(viewCell.ClassId))).Slowko + " - " + WordList.FirstOrDefault(x => x.Id == (Convert.ToInt32(viewCell.ClassId))).Tlumaczenie,
                     Title = "Twoje słówko:",
                     ReturningData = "bk",
                     NotificationId = 1,
@@ -66,13 +62,15 @@ namespace EnglishReminder2.Views
                 NotificationCenter.Current.Show(notification);
                 await DisplayAlert("poszlo", "ok", "k");
             }
-                viewCell.View.BackgroundColor = Color.White;
-
+            viewCell.View.BackgroundColor = Color.White;
+            lastCell = viewCell;
         }
 
-        private async void LastTenList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+
+        private async void LastTenList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            
+            //Header.Text = e.Item.ToString();
+
         }
     }
 }

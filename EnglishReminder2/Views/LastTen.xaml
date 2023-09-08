@@ -15,11 +15,11 @@
                           ItemsSource="{Binding WordList}"
                           RowHeight="64"
                           IsPullToRefreshEnabled="False"
-                          ItemSelected="LastTenList_ItemSelected"
+                          ItemTapped="LastTenList_ItemTapped"
                           SeparatorColor="DarkOrange">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell Tapped="ViewCell_Tapped">
+                            <ViewCell Tapped="ViewCell_Tapped" ClassId="{Binding Id}">
                                 <Grid RowDefinitions="*,*" Padding="5" RowSpacing="0">
                                     <Label Text="{Binding Id}"
                                            FontSize="18"

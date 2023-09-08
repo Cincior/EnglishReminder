@@ -205,18 +205,24 @@ namespace EnglishReminder2.Views
             Shell.Current.GoToAsync("Diki");
         }
 
-        private void TapGestureRecognizer_10(object sender, EventArgs e)
+        private async void TapGestureRecognizer_10(object sender, EventArgs e)
         {
+            await frame10.ScaleTo(1.1, 100);
+            await frame10.ScaleTo(1, 100);
             EntryTime.Text = "10";
         }
 
-        private void TapGestureRecognizer_30(object sender, EventArgs e)
+        private async void TapGestureRecognizer_30(object sender, EventArgs e)
         {
+            await frame30.ScaleTo(1.1, 100);
+            await frame30.ScaleTo(1, 100);
             EntryTime.Text = "30";
         }
 
-        private void TapGestureRecognizer_60(object sender, EventArgs e)
+        private async void TapGestureRecognizer_60(object sender, EventArgs e)
         {
+            await frame60.ScaleTo(1.1, 100);
+            await frame60.ScaleTo(1, 100);
             EntryTime.Text = "60";
         }
     }

@@ -14,11 +14,11 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label" x:Key="Title">
-                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="FontSize" Value="32"/>
                 <Setter Property="TextColor" Value="#ff7300"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
             </Style>
             <Style TargetType="Label" x:Key="Subtitle">
                 <Setter Property="FontSize" Value="17"/>
@@ -104,6 +104,7 @@
             <StackLayout>
                 <StackLayout Spacing="0" Orientation="Horizontal" Margin="12">
                     <Label Style="{StaticResource Title}" 
+                           FontFamily="sam"
                            Text="Centrum dowodzenia Remindera"/>
                     <ImageButton x:Name="infoButton" 
                                  Source="info.png" 
@@ -134,8 +135,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Frame CornerRadius="20" 
-                                       Style="{StaticResource FrameMain}"
-                                        BackgroundColor="Transparent">
+                                       Style="{StaticResource FrameMain}">
                                 <StackLayout>
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="TapGestureRecognizer_QuestionMark"/>
@@ -164,8 +164,7 @@
 
                             <Frame CornerRadius="20"
                                        Grid.Row="2"
-                                       Style="{StaticResource FrameMain}"
-                                       BackgroundColor="Transparent">
+                                       Style="{StaticResource FrameMain}">
                                 <StackLayout>
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Dictionary"/>
@@ -202,8 +201,7 @@
 
                             <Frame CornerRadius="20"
                                        Grid.Row="4"
-                                       Style="{StaticResource FrameMain}"
-                                       BackgroundColor="Transparent">
+                                       Style="{StaticResource FrameMain}">
                                 <StackLayout>
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Clock"/>
@@ -224,21 +222,24 @@
                                                 Text="Podaj Czas:"/>
                                         </StackLayout>
                                         <StackLayout Grid.Column="2" Orientation="Horizontal">
-                                            <Frame Style="{StaticResource TimeFrame}">
+                                            <Frame x:Name="frame10" 
+                                                   Style="{StaticResource TimeFrame}">
                                                 <Label Text="10" 
                                                    Style="{StaticResource TimeLbl}"/>
                                                 <Frame.GestureRecognizers>
                                                     <TapGestureRecognizer Tapped="TapGestureRecognizer_10"/>
                                                 </Frame.GestureRecognizers>
                                             </Frame>
-                                            <Frame Style="{StaticResource TimeFrame}">
+                                            <Frame x:Name="frame30" 
+                                                   Style="{StaticResource TimeFrame}">
                                                 <Label Text="30" 
                                                    Style="{StaticResource TimeLbl}"/>
                                                 <Frame.GestureRecognizers>
                                                     <TapGestureRecognizer Tapped="TapGestureRecognizer_30"/>
                                                 </Frame.GestureRecognizers>
                                             </Frame>
-                                            <Frame Style="{StaticResource TimeFrame}">
+                                            <Frame x:Name="frame60" 
+                                                   Style="{StaticResource TimeFrame}">
                                                 <Label Text="60" 
                                                    Style="{StaticResource TimeLbl}"/>
                                                 <Frame.GestureRecognizers>
