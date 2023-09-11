@@ -9,6 +9,7 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static EnglishReminder2.Models.DbInfo;
+using EnglishReminder2.Views.PopUps;
 
 namespace EnglishReminder2.Views
 {
@@ -17,6 +18,7 @@ namespace EnglishReminder2.Views
     {
         
         SqlConnection sqlConnection = new SqlConnection(sqlconn);
+
         public Main()
         {
             //Hosting at somee.com
@@ -99,7 +101,7 @@ namespace EnglishReminder2.Views
             //Shell.Current.GoToAsync("//Main");
         }
 
-        private void SendNotification_Clicked(object sender, EventArgs e)
+        private async void SendNotification_Clicked(object sender, EventArgs e)
         {
             bool IsWord = false, IsTranslate = false, IsTime = false;
             int Time = 30;
@@ -154,12 +156,13 @@ namespace EnglishReminder2.Views
                     }
                 };
                 NotificationCenter.Current.Show(notification);
-
                 DisplayAlert("Uwaga", "Przypomnienie zaplanowane pomyślnie", "OK");
 
                 EntryWord.Text = String.Empty;
                 EntryTranslate.Text = String.Empty;
                 EntryTime.Text = String.Empty;
+                
+
             }
             else
             {
@@ -182,7 +185,7 @@ namespace EnglishReminder2.Views
 
         private void infoButton_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("Jak działa aplikacja?", "W poniższym panelu możesz wpisać słówko, które trudno Ci zapamiętać. Dostaniesz jego przypomnienie po wybranym okresie czasu. Słówko pojawi się też w historii, więc możesz je sobie przypomnieć ponownie. Po przyciśnięciu anuluj wszystkie zaplanowane przypomnienia są anulowane. Jeśli nie znasz tłumaczenia słówka, sprawdź je w polecanym słowniku.", "Kumam");
+            Navigation.ShowPopup(new InfoPopup());
         }
 
         private void TapGestureRecognizer_QuestionMark(object sender, EventArgs e)

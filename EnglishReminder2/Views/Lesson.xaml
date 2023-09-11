@@ -10,7 +10,7 @@
     </Shell.TitleView>
 
     <ContentPage.Content>
-        <!--progres bar, wybor lekcji-->
+        <!--progres bar, wybor lekcji, activityindicator po zabookowaniu powiadomien--><
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
