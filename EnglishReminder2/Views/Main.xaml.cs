@@ -18,7 +18,7 @@ namespace EnglishReminder2.Views
     {
         
         SqlConnection sqlConnection = new SqlConnection(sqlconn);
-
+        int IleSlowek;
         public Main()
         {
             //Hosting at somee.com
@@ -44,9 +44,10 @@ namespace EnglishReminder2.Views
         private void UpdateAmountOfWords()
         {
             sqlConnection.Open();
-            SqlCommand cmd2 = new SqlCommand("SELECT IleSlowek FROM dbo.LicznikSlowek WHERE Id = 1", sqlConnection);
+            SqlCommand cmd2 = new SqlCommand("SELECT Count(Id) AS IleSlowek FROM dbo.SlowkaWpisane", sqlConnection);
             SqlDataReader reader2 = cmd2.ExecuteReader();
             reader2.Read();
+            IleSlowek = Convert.ToInt32(reader2["IleSlowek"]);
             HowMany.Text = Convert.ToString(reader2["IleSlowek"]);
             reader2.Close();
             sqlConnection.Close();
@@ -63,24 +64,8 @@ namespace EnglishReminder2.Views
 
         private void Current_NotificationReceived(NotificationReceivedEventArgs e)
         {
-            int StanSlowek;
             Device.BeginInvokeOnMainThread(() =>
             {
-                //Amount
-                sqlConnection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT IleSlowek FROM dbo.LicznikSlowek WHERE Id = 1", sqlConnection);
-                SqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                StanSlowek = Convert.ToInt32(reader["IleSlowek"]);
-                StanSlowek++;
-                reader.Close();
-                SqlCommand cmdUpdate = new SqlCommand($"UPDATE dbo.LicznikSlowek SET IleSlowek = {StanSlowek} WHERE Id = 1", sqlConnection);
-                cmdUpdate.ExecuteNonQuery();
-                sqlConnection.Close();
-
-                UpdateAmountOfWords();
-                
-                //Word
                 string Slowko, Tlumaczenie;
                 Slowko = (e.Description.Split('-')[0]).Trim();
                 Tlumaczenie = (e.Description.Split('-')[1]).Trim();
@@ -90,6 +75,7 @@ namespace EnglishReminder2.Views
                 sqlConnection.Close();
 
                 UpdateLastWord();
+                UpdateAmountOfWords();
                 DisplayAlert("xd", "received", "xd");
             });
         }
@@ -101,7 +87,7 @@ namespace EnglishReminder2.Views
             //Shell.Current.GoToAsync("//Main");
         }
 
-        private async void SendNotification_Clicked(object sender, EventArgs e)
+        private void SendNotification_Clicked(object sender, EventArgs e)
         {
             bool IsWord = false, IsTranslate = false, IsTime = false;
             int Time = 30;
@@ -148,7 +134,7 @@ namespace EnglishReminder2.Views
                     Description = word + " - " + EntryTranslate.Text,
                     Title = "Twoje słówko:",
                     ReturningData = "bk",
-                    NotificationId = 1,
+                    NotificationId = IleSlowek,
                     NotifyTime = DateTime.Now.AddSeconds(Time),
                     Android =
                     {
@@ -180,7 +166,7 @@ namespace EnglishReminder2.Views
         {
             await FrameInfo.ScaleTo(1.15, 100);
             await FrameInfo.ScaleTo(1, 100);
-            await Shell.Current.GoToAsync("/LastTen");
+            await Shell.Current.GoToAsync("LastTen", true );
         }
 
         private void infoButton_Clicked(object sender, EventArgs e)

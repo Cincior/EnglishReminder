@@ -1,35 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="EnglishReminder2.Views.PopUps.InfoPopup"
-             Size="350,420">
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+           x:Class="EnglishReminder2.Views.PopUps.InfoPopup"
+           xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+           Size="350,500"
+           Color="Transparent">
     <xct:Popup.Resources>
         <Style TargetType="BoxView" x:Key="Dot">
             <Setter Property="CornerRadius" Value="100"/>
             <Setter Property="BackgroundColor" Value="#ff7300"/>
             <Setter Property="WidthRequest" Value="8"/>
             <Setter Property="HeightRequest" Value="8"/>
-            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
-            <Setter Property="Margin" Value="8,0,0,0"/>
+            <Setter Property="Margin" Value="8,8,0,0"/>
         </Style>
         <Style TargetType="Label" x:Key="ListText">
             <Setter Property="TextColor" Value="Black"/>
             <Setter Property="FontSize" Value="18"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
         </Style>
     </xct:Popup.Resources>
-    
+
     <xct:Popup.Content>
-        <Grid BackgroundColor="White">
-            <Grid ColumnDefinitions="*">
+        <Frame Padding="0" CornerRadius="20">
+        <Grid BackgroundColor="White" RowDefinitions="auto, auto">
+            <Grid ColumnDefinitions="*" RowDefinitions="auto, auto">
+                <Image Source="BellO.png"
+                       HorizontalOptions="CenterAndExpand" 
+                       VerticalOptions="StartAndExpand"
+                       WidthRequest="55"
+                       HeightRequest="55"
+                       Margin="0,-20,0,0"/>
                 <Label Text="Jak działa aplikacja?"
                    VerticalOptions="Start" 
                    HorizontalTextAlignment="Center"
-                   FontSize="28"
+                   FontSize="32"
                    TextColor="#ff8700" 
-                   Margin="0,40,0,0"/>
+                   Margin="0,5,0,0"
+                   Grid.Row="1"/>
                 <ImageButton x:Name="Cancel"
                     Source="x.png"
                     Clicked="Cancel_Clicked"
@@ -39,39 +49,45 @@
                     HeightRequest="32"
                     BackgroundColor="Transparent"
                     CornerRadius="100"
-                    Margin="0,2,2,0"/>
+                    Margin="0,5,5,0"/>
             </Grid>
             
 
-            <Grid ColumnDefinitions="*" 
+            <Grid ColumnDefinitions="20,*" 
                   RowDefinitions="auto,auto,auto,auto" 
                   VerticalOptions="Center"
-                  Padding="15">
+                  Padding="15"
+                  Grid.Row="1">
                
+                <BoxView Style="{StaticResource Dot}"/>
                 <Label Style="{StaticResource ListText}"
                        Text="W poniższym panelu możesz wpisać słówko, które trudno Ci zapamiętać. Dostaniesz jego przypomnienie po wybranym okresie czasu."
-                       Grid.Column="0"/>
+                       Grid.Column="1"/>
 
-               
+                <BoxView Style="{StaticResource Dot}"
+                         Grid.Row="1"/>
                 <Label Style="{StaticResource ListText}"
                        Text="Słówko pojawi się też w historii, więc możesz je sobie przypomnieć ponownie."
-                       Grid.Column="0"
+                       Grid.Column="1"
                        Grid.Row="1"/>
 
-                
+                <BoxView Style="{StaticResource Dot}"
+                         Grid.Row="2"/>
                 <Label Style="{StaticResource ListText}"
                        Text="Po przyciśnięciu anuluj wszystkie zaplanowane przypomnienia są anulowane."
-                       Grid.Column="0"
+                       Grid.Column="1"
                        Grid.Row="2"/>
 
-                
+                <BoxView Style="{StaticResource Dot}"
+                        Grid.Row="3"/>
                 <Label Style="{StaticResource ListText}"
-                       Text="Jeśli nie znasz tłumaczenia słówka, sprawdź je w polecanym słowniku."
-                       Grid.Column="0"
-                       Grid.Row="3"/>
-            </Grid>
+                    Text="Jeśli nie znasz tłumaczenia słówka, sprawdź je w polecanym słowniku."
+                    Grid.Column="1"
+                    Grid.Row="3"/>
+                </Grid>
 
             
         </Grid>
+        </Frame>
     </xct:Popup.Content>
 </xct:Popup>

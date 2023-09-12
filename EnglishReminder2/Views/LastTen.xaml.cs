@@ -23,14 +23,12 @@ namespace EnglishReminder2.Views
         public LastTen()
 		{
 			InitializeComponent();
-            int i = 1;
             sqlConnection.Open();
-            SqlCommand GetWords = new SqlCommand("SELECT TOP 10 Slowko, Tlumaczenie FROM dbo.SlowkaWpisane ORDER BY Id DESC", sqlConnection);
+            SqlCommand GetWords = new SqlCommand("SELECT TOP 10 Id, Slowko, Tlumaczenie FROM dbo.SlowkaWpisane ORDER BY Id DESC", sqlConnection);
             SqlDataReader readerWords = GetWords.ExecuteReader();
             while (readerWords.Read())
             {
-                WordList.Add(new Word { Id = i, Slowko = Convert.ToString(readerWords["Slowko"]), Tlumaczenie = Convert.ToString(readerWords["Tlumaczenie"]) });
-                i++;
+                WordList.Add(new Word { Id = Convert.ToInt32(readerWords["Id"]), Slowko = Convert.ToString(readerWords["Slowko"]), Tlumaczenie = Convert.ToString(readerWords["Tlumaczenie"]) });
             }
             readerWords.Close();
             sqlConnection.Close();
@@ -52,7 +50,7 @@ namespace EnglishReminder2.Views
                     Description = WordList.First(x => x.Id == (Convert.ToInt32(viewCell.ClassId))).Slowko + " - " + WordList.FirstOrDefault(x => x.Id == (Convert.ToInt32(viewCell.ClassId))).Tlumaczenie,
                     Title = "Twoje słówko:",
                     ReturningData = "bk",
-                    NotificationId = 1,
+                    NotificationId = Convert.ToInt32(viewCell.ClassId),
                     NotifyTime = DateTime.Now.AddSeconds(10),
                     Android =
                     {
@@ -67,7 +65,7 @@ namespace EnglishReminder2.Views
         }
 
 
-        private async void LastTenList_ItemTapped(object sender, ItemTappedEventArgs e)
+        private void LastTenList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             //Header.Text = e.Item.ToString();
 

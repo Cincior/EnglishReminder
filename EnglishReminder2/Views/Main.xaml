@@ -94,7 +94,7 @@
                 <Setter Property="Padding" Value="2,1"/>
                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
-                <Setter Property="BackgroundColor" Value="#ff8700"/>
+                <Setter Property="BackgroundColor" Value="#7AC74F"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
