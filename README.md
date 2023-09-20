@@ -1,3 +1,4 @@
 # EnglishReminder2
 Xamarin.Froms project with MS SQL 
-Warning: Tested only for Android
+
+Before you start project you have to import Database. Imporst file ER.bacpac
